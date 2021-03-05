@@ -1,0 +1,25 @@
+server:
+  port: 8880
+  
+spring: 
+  application: 
+    # 与服务端的{application}对应
+    name: config-client-app
+  cloud:
+    config:
+      # 指定配置从配置中心加载的路径
+      uri: http://localhost:8888/
+      # 配置文件的前缀名字
+      #name: application
+      # gitLab形式配置中的配置文件名
+      name: order
+      # 分支名称
+      label: master
+      # 配置文件后缀名 综合起来就是：http://localhost:8888/master/order-dev.yml，8888服务将从gitLab上读取内容
+      profile: prod
+management:
+  endpoints:
+    web:
+      exposure:
+        # 用于在web中暴露所有actuator端点
+        include: "*"

@@ -1,0 +1,11 @@
+server:
+  port: 8074
+
+spring:
+  application:
+    name: goods-consummer
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+        

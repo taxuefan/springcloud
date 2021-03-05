@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        output:
+          # 通道名
+          destination: partitioned.destination
+          producer:
+            # 消息分区相同特征标记，通过消息头partitionKey指定
+            partition-key-expression: headers['partitionKey']
+            # 共两个分区，采用(key.hashCode() % partitionCount)算法对两个分区进行分发，是否均衡取决于key的值。
+            partition-count: 2
+            # 设置分组
+            required-groups:
+              - myGroup

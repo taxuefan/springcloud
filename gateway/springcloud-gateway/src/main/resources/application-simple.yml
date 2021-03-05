@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    gateway:
+      routes: 
+        # 路由taobao的定义
+        - id: taobao_routh
+          uri: https://www.taobao.com
+          # 多个断言通过逻辑and关系进行组合
+          predicates:
+            - After=2021-03-23T20:56:44.026281+08:00[Asia/Shanghai]
+            - Query=paramB
+            - Path=/index
+          #filters: 
+          #  - AddRequestHeader=X-Request-red, blue
+          #  - AddRequestParameter=red, blue
+        # 注意短横杠不要少，配置导致404的问题很多，这是其中一个
+        - id: sleep_routh # 路由的ID，要求唯一，建议跟服务名容易读懂
+          uri: http://localhost:8082  # 匹配后提供服务的路由地址
+          predicates:
+            - Path=/sleep/**    # 断言，匹配到请求路径是/sleep/**则跳转到http://localhost:8082/sleep/**

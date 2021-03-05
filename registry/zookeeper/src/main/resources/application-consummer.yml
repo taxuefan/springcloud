@@ -1,0 +1,10 @@
+server:
+  port: 8071
+
+spring:
+  application:
+    name: goods-consummer
+  cloud:
+    zookeeper:
+      connect-string: localhost:2181
+        

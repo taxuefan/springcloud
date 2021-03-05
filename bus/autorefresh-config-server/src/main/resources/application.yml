@@ -1,0 +1,45 @@
+server:
+  port: 8888
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        # bus 提供了/actuator/bus-refresh、/actuator/bus-env两个端点
+        # /actuator/bus-refresh用来清除RefreshScope缓存和重新加载@ConfigurationProperties的配置
+        # /actuator/bus-env 用来更新配置中指定的key-value键值对
+        include: "*"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+      #eureka集群
+      #defaultZone: http://peer1.com:8762/eureka/,http://peer2.com:8763/eureka/,http://peer3.com:8764/eureka/
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+spring:
+  config:
+    name: 
+  cloud:
+    config:
+      server:
+        #native:
+        #  search-locations: file:///F:/workspace/idea/vip/springcloud-apply-Hoxton.SR9/configuration/config-server/config-repo
+        git: 
+          
+          # 使用gitLab，http URL形式，后面要注意有.git后缀
+          uri: http://code.dongnaoedu.com/java-vip-all/config-repo.git
+          # 使用本地git仓库，file:// 会导致Invalid config server configuration错误，需要三个‘/’
+          #uri: file:///${user.dir}/configuration/config-server/config-repo
+          username: 805921455
+          password: hash@Dn2019
+          # 拉到本地的文件目录
+          basedir: target/config
+      # 作为http服务资源的{application}
+      name: configserver
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

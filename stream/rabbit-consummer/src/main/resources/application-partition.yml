@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          # 绑定通道
+          destination: partitioned.destination
+          # 绑定组名
+          group: myGroup
+          consumer:
+            # 消费者分区
+            partitioned: true
+            # 消费分区索引
+            instance-index: 0
