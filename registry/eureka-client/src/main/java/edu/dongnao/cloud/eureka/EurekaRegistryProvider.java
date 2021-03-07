@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
@@ -36,7 +39,23 @@ public class EurekaRegistryProvider {
     public String serverInfo(ServletRequest request) {
         return "Server info, "+request.getLocalAddr()+":"+request.getLocalPort();
     }
-    
+    @RequestMapping("/api/user/{userName}")
+    public User getuserInfo(HttpServletRequest request,@PathVariable("userName") String userName){
+        User user=new User();
+        user.setUserName(userName);
+        user.setPassword(String.valueOf(Math.random()));
+        return user;
+    }
+    @RequestMapping("/api/users")
+    public List<User> getUsers(HttpServletRequest request){
+        List list=new ArrayList<User>();
+        for(int i=0;i<4;i++){
+            User user=new User();
+            user.setUserName("huge"+i);
+            user.setPassword(String.valueOf(Math.random()));
+        }
+        return list;
+    }
     @RequestMapping("/sleep/{time}")
     public String sleeep(@PathVariable("time") long time) {
         try {
